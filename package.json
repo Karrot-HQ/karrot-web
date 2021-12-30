@@ -1,0 +1,26 @@
+{
+  "name": "karrot-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Karrot-HQ/karrot-web.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Karrot-HQ/karrot-web/issues"
+  },
+  "homepage": "https://github.com/Karrot-HQ/karrot-web#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "firebase": "^9.6.1",
+    "firebase-admin": "^10.0.1",
+    "graphql": "^16.2.0",
+    "validator": "^13.7.0"
+  }
+}
