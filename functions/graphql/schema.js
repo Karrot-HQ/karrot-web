@@ -12,9 +12,8 @@ const Query = `
     }
 `;
 
-let resolvers = {};
-
 const typeDefs = [Query, User];
+let resolvers = {};
 resolvers = merge(resolvers, UserResolvers);
 
 module.exports = {

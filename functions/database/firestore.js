@@ -1,5 +1,6 @@
 const admin = require("firebase-admin");
 
+// Update the credentials path
 const serviceAccount =
   require("../credentials/karrot-hq-firebase-adminsdk-shct8-45d7754fc1.json");
 

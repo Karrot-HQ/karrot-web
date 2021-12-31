@@ -1,9 +1,10 @@
 const User = require("../database/user");
+const {gql} = require("apollo-server-express");
 
-const typeDef = `
+const typeDef = gql`
     type User {
-        user_id: Int
-        email: String
+        user_id: Int!
+        email: String!
         first_name: String
         last_name: String
     }
@@ -14,6 +15,8 @@ const resolvers = {
     users: async (_, args) => {
       const users = await User.getUsers();
 
+      console.log(users);
+      // Change args.user_id to email
       if (!args.user_id) {
         return users;
       }
