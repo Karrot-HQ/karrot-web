@@ -66,4 +66,4 @@ node_modules/
 .env
 
 # Credentials
-karrot-hq-firebase-adminsdk-shct8-45d7754fc1.json
+credentials/
