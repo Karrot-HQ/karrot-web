@@ -9,6 +9,12 @@ admin.initializeApp({
   // credential: admin.credential.cert(serviceAccount),
 });
 
+// const serviceAccount =
+// require("../credentials/karrot-hq-firebase-adminsdk-shct8-45d7754fc1.json");
+// const adminConfig = JSON.parse(process.env.FIREBASE_CONFIG);
+// adminConfig.credential = admin.credential.cert(serviceAccount);
+// admin.initializeApp(adminConfig);
+
 const db = admin.firestore();
 
 module.exports = db;
