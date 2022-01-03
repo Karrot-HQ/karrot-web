@@ -24,9 +24,12 @@ Additionally, the app uses Apollo GraphQL as its API query language.
 4. Copy the environment variables from .env.default to a .env file in the root folder and in the functions subdirectory.
 5. Go to the Firebase console and locate the Firebase configurations (Project Settings > General). Copy all of the Firebase configurations into the .env file in the root folder.
 6. Update the environment variable for FIREBASE_SERVICE_ACCOUNT in the .env file in the functions subdirectory to the path for your service account json file that was loaded to the credentials folder i.e. ../credentials/SERVICE_ACCOUNT_FILE_NAME.json.
-7. Run `firebase emulators:start --import=./emulators.backup` to start all Firebase features while importing seed data into Firestore (if you do not import seed data, Firestore will be empty).
-8. To export the emulator data for future use (should you add or change any collections or documents), run `firebase emulators:export ./emulators.backup` in a separate terminal while the emulator is still running. This will replace the existing emulator backup files.
-9. To use GraphQL's playground while the emulator is running, head to [Apollo Studio](https://studio.apollographql.com/). Create a new graph and enter into your localhost graphql url (after you run start the emulator, the terminal will print out a graphql url i.e. http://localhost:5001/karrot-hq/us-central1/graphql).
+7. Skip to step 10 if you do not need to update the ./emulators.backup files. To update the ./emulators.backup files based on production data, run `cd functions`, `unset FIRESTORE_EMULATOR_HOST`, then `firestore-export --accountCredentials serviceAccountFile.json --backupFile output.json`. Make sure to replace serviceAccountFile.json with the path to your service account credentials file. 
+8. Afterwards, run `firebase emulators:start --only firestore`. This will start only the firestore feature. Then we want to ensure we write to the emulators by running `export FIRESTORE_EMULATOR_HOST=0.0.0.0:8080`.  Replace 8080 with the port you are using for firestore that is set in the firebase.json file.
+9. Run `firestore-import --accountCredentials serviceAccountFile.json --backupFile output.json` to import data in the firestore emulator.
+10. If you ran steps 7-9, then you do not need to run this step. Run `firebase emulators:start --import=./emulators.backup` to start all Firebase features while importing seed data into Firestore (if you do not import seed data, Firestore will be empty).
+11. To export the emulator data for future use (should you add or change any collections or documents), run `firebase emulators:export ./emulators.backup` in a separate terminal while the emulator is still running. This will replace the existing emulator backup files.
+12. To use GraphQL's playground while the emulator is running, head to [Apollo Studio](https://studio.apollographql.com/). Create a new graph and enter into your localhost graphql url (after you run start the emulator, the terminal will print out a graphql url i.e. http://localhost:5001/karrot-hq/us-central1/graphql).
 
 ## Deployment
 ---
