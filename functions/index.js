@@ -1,19 +1,27 @@
 const functions = require("firebase-functions");
 const express = require("express");
-const {ApolloServer} = require("apollo-server-express");
+const {ApolloServer, makeExecutableSchema} = require("apollo-server-express");
 const {ApolloServerPluginLandingPageGraphQLPlayground} = require("apollo-server-core");
 
 const {typeDefs, resolvers} = require("./graphql/schema");
+const {TimestampTypeDefinition} = require("graphql-scalars");
 
 const app = express();
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  plugins: [
-    // eslint-disable-next-line new-cap
-    ApolloServerPluginLandingPageGraphQLPlayground(),
-  ],
+  schema: makeExecutableSchema({
+    typeDefs: [
+      ...typeDefs,
+      TimestampTypeDefinition,
+    ],
+    resolvers: {
+      ...resolvers,
+    },
+    plugins: [
+      // eslint-disable-next-line new-cap
+      ApolloServerPluginLandingPageGraphQLPlayground(),
+    ],
+  }),
 });
 
 server.applyMiddleware({app, path: "/", cors: true});
