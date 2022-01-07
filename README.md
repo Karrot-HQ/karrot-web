@@ -34,6 +34,6 @@ Additionally, the app uses Apollo GraphQL as its API query language.
 
 ## Manual Deployment
 ---
-1. Ensure there are secrets for FIREBASE_TOKEN and FIREBASE_SERVICE_ACCOUNT_CONVERTED in the GitHub repository.
+1. Ensure there are secrets for FIREBASE_TOKEN and FIREBASE_SERVICE_ACCOUNT_CONVERTED in the GitHub repository under the Production environment.
 2. On root level, run `firebase deploy`. Priority is to ensure that functions and firestore are deployed successfully.
 3. Once deployed, you can reference https://us-central1-karrot-hq.cloudfunctions.net/graphql for production build.
