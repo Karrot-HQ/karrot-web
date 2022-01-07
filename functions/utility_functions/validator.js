@@ -1,4 +1,4 @@
-const validator = require("validator");
+const validator = require("../node_modules/validator");
 
 const validateEmail = (input) => {
   const res = validator.isEmail(input.toString());
