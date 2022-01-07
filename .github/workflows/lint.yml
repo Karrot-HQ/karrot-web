@@ -22,8 +22,12 @@ jobs:
         run: cd functions && npm ci
 
       - name: Run linters
-        uses: wearerequired/lint-action@v1
-        with:
-          eslint: true
+        working-directory: ./functions
+        run: npm run lint
+
+      #- name: Run linters
+      #  uses: wearerequired/lint-action@v1
+      #  with:
+      #    eslint: true
           #prettier: true
-          eslint_dir: functions/
+      #    eslint_dir: functions/

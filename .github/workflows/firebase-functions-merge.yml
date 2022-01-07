@@ -4,9 +4,6 @@ on:
     workflows: ["Lint"]
     types:
       - completed
-  #push:
-  #  branches:
-  #    - main
       
 jobs:
   on-success:
