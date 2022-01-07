@@ -2,8 +2,6 @@ const Grocery = require("../database/grocery");
 const {gql} = require("apollo-server-express");
 const {TimestampResolver} = require("graphql-scalars");
 
-// Remove expiry_id from groceries collection
-// Add input_date to groceries collection
 const typeDef = gql`
     type Grocery {
         item_id: Int!
@@ -18,6 +16,13 @@ const typeDef = gql`
         item_name: String!
         user_id: Int!
         input_date: Timestamp
+        delete_tag: Boolean
+        bought_tag: Boolean
+    }
+
+    input EditGroceryTags {
+        item_id: Int!
+        user_id: Int!
         delete_tag: Boolean
         bought_tag: Boolean
     }
@@ -42,13 +47,10 @@ const resolvers = {
     },
   },
   Mutation: {
-    // Add input date calculation, default tags
-    // Validate user_id exists in user and item_name is not null
     addGrocery: async (_, {grocery}) =>
       await Grocery.addGrocery(grocery),
-    // Validate user_id & item_id exists in grocery, delete_tag is boolean, bought_tag is boolean
-    // editGrocery: async (_, {grocery}) =>
-    //  await Grocery.editGrocery(grocery),
+    editGroceryTags: async (_, {grocery}) =>
+      await Grocery.editGroceryTags(grocery),
   },
 };
 
