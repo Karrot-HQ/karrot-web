@@ -22,7 +22,7 @@ jobs:
         run: cd functions && npm ci
 
       - name: Run linters
-        working-directory: ./functions
+        working-directory: functions/
         run: npm run lint
 
       #- name: Run linters
