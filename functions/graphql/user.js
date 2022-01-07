@@ -1,7 +1,7 @@
 const User = require("../database/user");
-// const {gql} = require("apollo-server-express");
+const {gql} = require("apollo-server-express");
 
-const typeDef = `
+const typeDef = gql`
     type User {
       user_id: Int!
       email: String!
