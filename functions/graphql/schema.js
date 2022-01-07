@@ -49,6 +49,7 @@ const Mutation = gql`
       addGrocery(grocery: AddGrocery): Boolean
       editGroceryTags(grocery: EditGroceryTags): Boolean
       addInventory(inventory: AddInventory): Boolean
+      editInventoryTags(inventory: EditInventoryTags): Boolean
     }
 `;
 

@@ -61,7 +61,7 @@ const editInventoryTags = async (inventoryData) => {
   }
   if (inventoryData.usage_tag !== undefined) {
     const usageEnum = ["unused", "used", "tossed"];
-    validateUsageTag = true;
+    validateUsageTag = usageEnum.includes(inventoryData.usage_tag);
   }
 
   if (checkIds && validateExpiryTag && validateUsageTag) {

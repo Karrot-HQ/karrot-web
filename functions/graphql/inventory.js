@@ -2,8 +2,14 @@ const Inventory = require("../database/inventory");
 const {gql} = require("apollo-server-express");
 
 // Create enum for usage_tag
-// Define custom scalar for date
+
+
 const typeDef = gql`
+    enum UsageType {
+      unused,
+      used,
+      tossed,
+    }
     type Inventory {
         item_id: Int!
         item_name: String!
@@ -12,7 +18,7 @@ const typeDef = gql`
         input_date: String
         expiry_date: String
         expiry_tag: Boolean
-        usage_tag: String
+        usage_tag: UsageType
     }
 
     input AddInventory {
@@ -24,6 +30,13 @@ const typeDef = gql`
         expiry_tag: Boolean
         usage_tag: String
     }
+
+    input EditInventoryTags {
+      item_id: Int!
+      user_id: Int!
+      expiry_tag: Boolean
+      usage_tag: String
+  }
 `;
 
 const resolvers = {
@@ -44,13 +57,11 @@ const resolvers = {
     },
   },
   Mutation: {
-    // Add input date calculation, expiry date calculation, default tags, expiry id retrieval
-    // Validate user_id exists in user and item_name is not null
+    // Add expiry id retrieval
     addInventory: async (_, {inventory}) =>
       await Inventory.addInventory(inventory),
-    // Validate user_id & item_id exists in inventory, usage_tag is enum, expiry_tag is boolean
-    // editInventory: async (_, {inventory}) =>
-    //  await Inventory.editInventory(inventory),
+    editInventoryTags: async (_, {inventory}) =>
+      await Inventory.editInventoryTags(inventory),
   },
 };
 

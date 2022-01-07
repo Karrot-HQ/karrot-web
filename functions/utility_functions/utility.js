@@ -20,8 +20,16 @@ const inventoryIdCheck = async (userId, itemId) => {
   return check;
 };
 
+const expiryCalc = (inputDate, expiryTime) => {
+  const newDate = inputDate.setDate(inputDate.getDate() + expiryTime);
+  // Check if secs needs to be converted to days
+  const expiryDate = new Date(newDate);
+  return expiryDate;
+};
+
 module.exports = {
   userIdCheck,
   groceryIdCheck,
   inventoryIdCheck,
+  expiryCalc,
 };
