@@ -21,6 +21,7 @@ const resolvers = {
     users: async (_, args) => {
       const users = await User.getUsers();
 
+      // Filter reuslts based on user_id and/or email
       if (!args.user_id && !args.email) {
         return users;
       } else if (!args.user_id) {

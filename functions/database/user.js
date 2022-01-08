@@ -1,11 +1,17 @@
 const db = require("./firestore");
 const validator = require("../utility_functions/validator.js");
 
+// Query: Get all data from users collection
 const getUsers = async () => (
   await db.collection("users").get()).docs.map((user) => user.data());
 
+// Mutation: Add an user
+// Required: email (string)
+// Optional: first_name (string), last_name (string)
 const addUser = async (userData) => {
   const validateEmail = validator.validateEmail(userData.email);
+
+  // Check that email doesn't already exist in database
   let checkEmail = false;
   if (validateEmail) {
     const emailRes = await db.collection("users").where("email", "==", userData.email).get();

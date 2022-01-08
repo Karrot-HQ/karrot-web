@@ -2,9 +2,9 @@ const functions = require("firebase-functions");
 const express = require("express");
 const {ApolloServer, makeExecutableSchema} = require("apollo-server-express");
 const {ApolloServerPluginLandingPageGraphQLPlayground} = require("apollo-server-core");
+const {TimestampTypeDefinition} = require("graphql-scalars");
 
 const {typeDefs, resolvers} = require("./graphql/schema");
-const {TimestampTypeDefinition} = require("graphql-scalars");
 
 const app = express();
 

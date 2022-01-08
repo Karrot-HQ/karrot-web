@@ -34,6 +34,7 @@ const resolvers = {
     groceries: async (_, args) => {
       const groceries = await Grocery.getGroceries();
 
+      // Filter results based on user_id and/or item_id
       if (!args.user_id && !args.item_id) {
         return groceries;
       } else if (!args.item_id) {
