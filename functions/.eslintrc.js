@@ -12,6 +12,7 @@ module.exports = {
     "quotes": ["error", "double"],
     "semi": ["error", "always"],
     "max-len": [2, 100, 4, {"ignoreUrls": true}],
+    "require-jsdoc": "off",
   },
   parserOptions: {
     ecmaVersion: 12,
