@@ -5,11 +5,13 @@ const {gql} = require("apollo-server-express");
 const User = require("./user").typeDef;
 const Grocery = require("./grocery").typeDef;
 const Inventory = require("./inventory").typeDef;
+const Recipe = require("./recipe").typeDef;
 
 // Resolver Imports
 const UserResolvers = require("./user").resolvers;
 const GroceryResolvers = require("./grocery").resolvers;
 const InventoryResolvers = require("./inventory").resolvers;
+const RecipeResolvers = require("./recipe").resolvers;
 
 const Query = gql`
     type Query {
@@ -19,6 +21,7 @@ const Query = gql`
           first_name: String, 
           last_name: String
         ): [User]
+
         groceries(
           item_id: Int, 
           item_name: String, 
@@ -27,6 +30,7 @@ const Query = gql`
           delete_tag: Boolean, 
           bought_tag: Boolean
         ): [Grocery]
+
         inventories(
           item_id: Int, 
           item_name: String, 
@@ -37,6 +41,19 @@ const Query = gql`
           expiry_tag: Boolean, 
           usage_tag: String
         ): [Inventory]
+
+        recipes(
+          ingredients: String,
+          number: Int,
+          limitLicense: Boolean,
+          ranking: Int,
+          ignorePantry: Boolean
+        ): [Recipe]
+
+        recipesInfo(
+          ids: String,
+          includeNutrition: Boolean
+        ): [RecipeInfo]
     }
 `;
 
@@ -53,9 +70,9 @@ const Mutation = gql`
     }
 `;
 
-const typeDefs = [Query, Mutation, User, Grocery, Inventory];
+const typeDefs = [Query, Mutation, User, Grocery, Inventory, Recipe];
 let resolvers = {};
-resolvers = merge(resolvers, UserResolvers, GroceryResolvers, InventoryResolvers);
+resolvers = merge(resolvers, UserResolvers, GroceryResolvers, InventoryResolvers, RecipeResolvers);
 
 module.exports = {
   typeDefs,
