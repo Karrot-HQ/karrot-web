@@ -10,7 +10,7 @@ const validateDate = (input) => {
   return res;
 };
 
-const validateId = (input) => {
+const validateInt = (input) => {
   const res = validator.isInt(input.toString(), [{min: 1}]);
   return res;
 };
@@ -25,10 +25,40 @@ const validateAlphaNumeric = (input) => {
   return res;
 };
 
+const validateAlpha = (input) => {
+  const res = validator.isAlpha(input);
+  return res;
+};
+
+const validateNumeric = (input) => {
+  const res = validator.isNumeric(input);
+  return res;
+};
+
+const validateAscii = (input) => {
+  const res = validator.isAscii(input);
+  return res;
+};
+
+const validateMobilePhone = (input) => {
+  const res = validator.isMobilePhone(input, [{strictMode: true}]);
+  return res;
+};
+
+const validateStrongPassword = (input) => {
+  const res = validator.isStrongPassword(input);
+  return res;
+};
+
 module.exports = {
   validateEmail,
   validateDate,
-  validateId,
+  validateInt,
   validateBoolean,
   validateAlphaNumeric,
+  validateAlpha,
+  validateNumeric,
+  validateAscii,
+  validateMobilePhone,
+  validateStrongPassword,
 };

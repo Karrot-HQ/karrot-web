@@ -17,7 +17,7 @@ const addGrocery = async (groceryData) => {
   const inputDate = new Date; // firebase.firestore.Timestamp.now();
 
   // Validate that user_id and item_name are in correct formats
-  const validateUserId = validator.validateId(userId);
+  const validateUserId = validator.validateInt(userId);
   const validateItemName = validator.validateAlphaNumeric(itemName);
 
   // Check that user_id exists in users collection
