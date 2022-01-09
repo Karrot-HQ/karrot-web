@@ -12,6 +12,7 @@ class RecipesAPI extends RESTDataSource {
     request.params.set("apiKey", process.env.SPOONACULAR_API_KEY_1);
   }
   async recipes(ingredients="onion", number=1, limitLicense=true, ranking=1, ignorePantry=true) {
+    // Add ingredients validator
     const validateNumber = validator.validateInt(number);
     const validateRanking = validator.validateInt(ranking);
     const validateLimitLicense = validator.validateBoolean(limitLicense);
@@ -30,6 +31,7 @@ class RecipesAPI extends RESTDataSource {
     return [];
   }
   async recipesInfo(ids="715538", includeNutrition=false) {
+    // Add ids validator
     const validateIncludeNutrition = validator.validateBoolean(includeNutrition);
 
     if (validateIncludeNutrition) {

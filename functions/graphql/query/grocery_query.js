@@ -1,38 +1,30 @@
-const Grocery = require("../database/grocery");
 const {gql} = require("apollo-server-express");
-const {TimestampResolver} = require("graphql-scalars");
+const {DateTimeResolver} = require("graphql-scalars");
 
+const Grocery = require("../../database/collections/grocery_collection");
+
+// Set fields
 const typeDef = gql`
     type Grocery {
         item_id: Int!
         item_name: String!
         user_id: Int!
-        input_date: Timestamp
+        input_date: DateTime
         delete_tag: Boolean
         bought_tag: Boolean
-    }
-
-    input AddGrocery {
-        item_name: String!
-        user_id: Int!
-        input_date: Timestamp
-        delete_tag: Boolean
-        bought_tag: Boolean
-    }
-
-    input EditGroceryTags {
-        item_id: Int!
-        user_id: Int!
-        delete_tag: Boolean
-        bought_tag: Boolean
+        last_updated: DateTime
     }
 `;
 
 const resolvers = {
-  Timestamp: TimestampResolver,
+  DateTime: DateTimeResolver,
   Query: {
     groceries: async (_, args) => {
       const groceries = await Grocery.getGroceries();
+      groceries.forEach((grocery) => {
+        grocery.last_updated = grocery.last_updated.toDate();
+        grocery.input_date = grocery.input_date.toDate();
+      });
 
       // Filter results based on user_id and/or item_id
       if (!args.user_id && !args.item_id) {
@@ -46,12 +38,6 @@ const resolvers = {
             parseInt(grocery.item_id) === parseInt(args.item_id));
       }
     },
-  },
-  Mutation: {
-    addGrocery: async (_, {grocery}) =>
-      await Grocery.addGrocery(grocery),
-    editGroceryTags: async (_, {grocery}) =>
-      await Grocery.editGroceryTags(grocery),
   },
 };
 

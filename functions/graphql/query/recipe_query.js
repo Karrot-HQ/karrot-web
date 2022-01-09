@@ -1,6 +1,8 @@
 const {gql} = require("apollo-server-express");
-const api = require("./api");
 
+const api = require("../api");
+
+// Add missing fields
 const typeDef = gql`
     type Recipe {
         id: Int
