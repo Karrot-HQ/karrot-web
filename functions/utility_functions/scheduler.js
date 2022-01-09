@@ -1,5 +1,5 @@
 const db = require("../database/firestore");
-const inventory = require("../database/inventory");
+const inventory = require("../database/collections/inventory_collection");
 const schedule = require("../node_modules/node-schedule");
 const rule = new schedule.RecurrenceRule();
 rule.hour = 0; // runs once a day at midnight
