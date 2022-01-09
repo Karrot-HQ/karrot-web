@@ -13,7 +13,7 @@ const expiryCheck = async () => {
     const userId = doc.user_id;
     const itemId = doc.item_id;
     const inventoryData = {"inventory": {"user_id": userId, "item_id": itemId, "expiry_tag": true}};
-    inventory.editInventoryTags(inventoryData);
+    inventory.editInventory(inventoryData);
   });
 };
 
