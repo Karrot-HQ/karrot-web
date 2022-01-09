@@ -3,20 +3,23 @@ const util = require("../../utility_functions/utility.js");
 
 const expiryCheck = async () => {
   const currentDate = new Date();
-  const expiredItems = await db.collection("inventories").where("expiry_tag", "==", false)
-      .where("expiry_date", "<", currentDate).get();
-  expiredItems.forEach((doc) => {
+  const expiredItems = (await db.collection("inventories").where("expiry_tag", "==", false)
+      .where("expiry_date", "<=", currentDate).get()).docs.map((items) => items.data());
+  // const list = expiredItems.docs.map((items) => items.data());
+  // console.log(list);
+  expiredItems.forEach(async (doc) => {
     const userId = doc.user_id;
     const itemId = doc.item_id;
-    const inventoryData = {"inventory": {"user_id": userId, "item_id": itemId, "expiry_tag": true}};
-    editInventory(inventoryData);
+    const inventoryData = {"user_id": userId, "item_id": itemId, "expiry_tag": true};
+    const res = await editInventory(inventoryData);
+    console.log(res);
   });
 };
 
 // Query: Get all data from inventories collection
 const getInventories = async () => {
   expiryCheck();
-  (await db.collection("inventories").get()).docs.map((inventory) => inventory.data());
+  return (await db.collection("inventories").get()).docs.map((inventory) => inventory.data());
 };
 
 // Mutation: Add an inventory item

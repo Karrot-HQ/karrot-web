@@ -24,6 +24,7 @@ const resolvers = {
   Query: {
     inventories: async (_, args) => {
       const inventories = await Inventory.getInventories();
+      console.log(inventories);
       inventories.forEach((inventory) => {
         inventory.last_updated = inventory.last_updated.toDate();
         inventory.input_date = inventory.input_date.toDate();
