@@ -1,5 +1,6 @@
 const db = require("../firestore");
 const util = require("../../utility_functions/utility.js");
+const {addInventory} = require("./inventory_collection");
 
 // Query: Get all data from groceries collection
 const getGroceries = async () => (await db.collection("groceries").get())
@@ -47,7 +48,6 @@ const addGrocery = async (groceryData) => {
 
 // Mutation: Edit fields for a single item
 // Required: user_id (int), item_id (int)
-// To do: auto trigger add inventory if bought_tag is true
 const editGrocery = async (groceryData) => {
   let res = false;
   // Check that user_id and item_id combination exists
@@ -61,6 +61,17 @@ const editGrocery = async (groceryData) => {
       ...groceryData,
     });
     res = true;
+
+    // Trigger add item to inventory if bought_tag is set to true
+    if (groceryData.bought_tag) {
+      const itemSnapshot = await db.collection("groceries").doc(String(docId)).get();
+      const groceryId = itemSnapshot.data().item_id;
+      const itemName = itemSnapshot.data().item_name;
+
+      const inventoryData = {user_id: groceryData.user_id,
+        item_name: itemName, grocery_id: groceryId};
+      await addInventory(inventoryData);
+    }
   }
 
   return res;
