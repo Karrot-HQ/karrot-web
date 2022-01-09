@@ -1,9 +1,23 @@
 const db = require("../firestore");
 const util = require("../../utility_functions/utility.js");
 
+const expiryCheck = async () => {
+  const currentDate = new Date();
+  const expiredItems = await db.collection("inventories").where("expiry_tag", "==", false)
+      .where("expiry_date", "<", currentDate).get();
+  expiredItems.forEach((doc) => {
+    const userId = doc.user_id;
+    const itemId = doc.item_id;
+    const inventoryData = {"inventory": {"user_id": userId, "item_id": itemId, "expiry_tag": true}};
+    editInventory(inventoryData);
+  });
+};
+
 // Query: Get all data from inventories collection
-const getInventories = async () => (await db.collection("inventories").get())
-    .docs.map((inventory) => inventory.data());
+const getInventories = async () => {
+  expiryCheck();
+  (await db.collection("inventories").get()).docs.map((inventory) => inventory.data());
+};
 
 // Mutation: Add an inventory item
 // Required: user_id (int), item_name (string)

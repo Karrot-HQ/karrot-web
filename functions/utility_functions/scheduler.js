@@ -17,13 +17,9 @@ const expiryCheck = async () => {
   });
 };
 
-// eslint-disable-next-line no-unused-vars
-/* const expiryCheckScheduler = schedule.scheduleJob(rule, () => {
-  expiryCheck();
-  console.log("Finished expiry check.");
-});*/
 
-const expiryCheckScheduler = schedule.scheduleJob("*/5* * * *", () => {
+// eslint-disable-next-line no-unused-vars
+const expiryCheckScheduler = schedule.scheduleJob(rule, () => {
   expiryCheck();
   console.log("Finished expiry check.");
 });
