@@ -29,14 +29,14 @@ Additionally, the app uses Apollo GraphQL as its API query language and GitHub A
 ## Export Firestore Data to Emulator
 ---
 1. To update the ./emulators.backup files based on production data, run `cd functions`, `unset FIRESTORE_EMULATOR_HOST`, then `firestore-export --accountCredentials serviceAccountFile.json --backupFile output.json`. Make sure to replace serviceAccountFile.json with the path to your service account credentials file. 
-2. Afterwards, run `firebase emulators:start --only firestore`. This will start only the firestore feature. Then we want to ensure we write to the emulators by running `export FIRESTORE_EMULATOR_HOST=0.0.0.0:8080`.  Replace 8080 with the port you are using for firestore that is set in the firebase.json file.
-3. Run `firestore-import --accountCredentials serviceAccountFile.json --backupFile output.json` to import data in the firestore emulator.
+2. Afterwards, run `firebase emulators:start --only firestore`. This will start only the firestore feature. Then we want to ensure we write to the emulators by running `export FIRESTORE_EMULATOR_HOST=0.0.0.0:8080` or `export FIRESTORE_EMULATOR_HOST=localhost:8080` in a separate terminal. Replace 8080 with the port you are using for firestore that is set in the firebase.json file.
+3. Run `firestore-import --accountCredentials serviceAccountFile.json --backupFile output.json` to import data in the firestore emulator via a separate terminal.
 
 ## Run Emulator
 ---
 1. Run `firebase emulators:start --import=./emulators.backup` to start all Firebase features while importing seed data into Firestore (if you do not import seed data, Firestore will be empty).
 2. To export the emulator data for future use (should you add or change any collections or documents), run `firebase emulators:export ./emulators.backup` in a separate terminal while the emulator is still running. This will replace the existing emulator backup files.
-3. To use GraphQL's playground while the emulator is running, head to [Apollo Studio](https://studio.apollographql.com/). Create a new graph and enter into your localhost graphql url (after you run start the emulator, the terminal will print out a graphql url i.e. http://localhost:5001/karrot-hq/us-central1/graphql).
+3. To use GraphQL's playground while the emulator is running, head to [Apollo Studio](https://studio.apollographql.com/). Create a new graph and enter in your localhost graphql url (after you run start the emulator, the terminal will print out a graphql url i.e. http://localhost:5001/karrot-hq/us-central1/graphql).
 
 ## Manual Deployment
 ---
