@@ -1,6 +1,6 @@
 # Karrot Web
 
-## Description
+## Summary
 
 Karrot Web provisions a Firebase app, which consists of the following SDK features:
 - Cloud Functions (back-end server)
@@ -14,7 +14,13 @@ Other features that have been enabled but are not currently used include:
 
 All code related to Cloud Functions and Firestore can be found in the **functions** subdirectory.
 
-Additionally, the app uses Apollo GraphQL as its API query language and GitHub Actions for CI/CD.
+## Technologies
+
+- Firebase (Firestore, Cloud Functions)
+- Node, Express
+- Apollo GraphQL
+- GitHub Actions
+- ESLint
 
 ## Set Up
 
@@ -26,19 +32,19 @@ Additionally, the app uses Apollo GraphQL as its API query language and GitHub A
 6. Go to the Firebase console and locate the Firebase configurations (Project Settings > General). Copy all of the Firebase configurations into the .env file in the root folder.
 7. Update the environment variable for FIREBASE_SERVICE_ACCOUNT_CONVERTED in the .env file in the functions subdirectory with the base64 version of the service account credentials.
 
-## Export Firestore Data to Emulator
+## Export Data
 
 1. To update the ./emulators.backup files based on production data, run `cd functions`, `unset FIRESTORE_EMULATOR_HOST`, then `firestore-export --accountCredentials serviceAccountFile.json --backupFile output.json`. Make sure to replace serviceAccountFile.json with the path to your service account credentials file. 
 2. Afterwards, run `firebase emulators:start --only firestore`. This will start only the firestore feature. Then we want to ensure we write to the emulators by running `export FIRESTORE_EMULATOR_HOST=0.0.0.0:8080` or `export FIRESTORE_EMULATOR_HOST=localhost:8080` in a separate terminal. Replace 8080 with the port you are using for firestore that is set in the firebase.json file.
 3. Run `firestore-import --accountCredentials serviceAccountFile.json --backupFile output.json` to import data in the firestore emulator via a separate terminal.
 
-## Run Emulator
+## Emulators
 
 1. Run `firebase emulators:start --import=./emulators.backup` to start all Firebase features while importing seed data into Firestore (if you do not import seed data, Firestore will be empty).
 2. To export the emulator data for future use (should you add or change any collections or documents), run `firebase emulators:export ./emulators.backup` in a separate terminal while the emulator is still running. This will replace the existing emulator backup files.
 3. To use GraphQL's playground while the emulator is running, head to [Apollo Studio](https://studio.apollographql.com/). Create a new graph and enter in your localhost graphql url (after you run start the emulator, the terminal will print out a graphql url i.e. http://localhost:5001/karrot-hq/us-central1/graphql).
 
-## Manual Deployment
+## Deployment
 
 1. Ensure there are secrets for FIREBASE_TOKEN and FIREBASE_SERVICE_ACCOUNT_CONVERTED in the GitHub repository under the Production environment.
 2. On root level, run `firebase deploy`. Priority is to ensure that functions and firestore are deployed successfully.
