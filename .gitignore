@@ -62,8 +62,11 @@ node_modules/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
+# Environment variables file
 .env
+
+# Miscellaneous
+.DS_Store
 
 # Credentials
 credentials/
