@@ -24,7 +24,7 @@ jobs:
         run: 
           npm ci && cd functions && npm ci
 
-      - name: Create env file
+      - name: Create env file with base64 version of service account credentials
         run: |
           cd functions && touch .env && echo FIREBASE_SERVICE_ACCOUNT_CONVERTED=${{ secrets.FIREBASE_SERVICE_ACCOUNT_CONVERTED }} >> .env   
 
